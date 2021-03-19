@@ -1,0 +1,32 @@
+<html>
+<head>
+    <title>Performs a simple navigation to a custom url schema</title>
+    <meta name="viewport" content="width=device-width">
+    <style>
+            .popup {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                -webkit-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+            }
+    </style>
+</head>
+<body>
+<div class="popup">
+    This button or link will try to open a custom url schema
+    with additional simple url encoded GET params as well as complex params in JSON format<br><br>
+    <pre>
+comebacktome://finished?
+    simpleStringData=OK&
+    simpleNumberData=10&
+    complexData={"first_name":"Smarty", "last_name":"Pants"}
+    </pre>
+    <button onclick="window.location.href='comebacktome://finished?simpleStringData=OK&simpleNumberData=10&complexData=%7B%22first_name%22%3A%22Smarty%22%2C%20%22last_name%22%3A%22Pants%22%7D';">
+        Open
+    </button>
+    <br><br>
+    <a href="comebacktome://finished?simpleStringData=OK&simpleNumberData=10&complexData=%7B%22first_name%22%3A%22Smarty%22%2C%20%22last_name%22%3A%22Pants%22%7D">Open</a>
+</div>
+</body>
+</html>
