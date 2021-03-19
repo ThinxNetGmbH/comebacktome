@@ -15,18 +15,22 @@
 <body>
 <div class="popup">
     This button or link will try to open a custom url schema
-    with additional simple url encoded GET params as well as complex params in JSON format<br><br>
+    with additional simple url encoded GET params as well
+    as complex params in JSON format<br><br>
     <pre>
 comebacktome://finished?
     simpleStringData=OK&
     simpleNumberData=10&
-    complexData={"first_name":"Smarty", "last_name":"Pants"}
+    complexData='{
+        "first_name":"Smarty",
+        "last_name":"Pants"
+    }'
     </pre>
-    <button onclick="window.location.href='comebacktome://finished?simpleStringData=OK&simpleNumberData=10&complexData=%7B%22first_name%22%3A%22Smarty%22%2C%20%22last_name%22%3A%22Pants%22%7D';">
+    <button onclick="window.location.href='comebacktome://finished?simpleStringData=OK&simpleNumberData=10&complexData=complexData%3D%27%7B%22first_name%22%3A%22Smarty%22%2C%22last_name%22%3A%22Pants%22%7D%27';">
         Open
     </button>
     <br><br>
-    <a href="comebacktome://finished?simpleStringData=OK&simpleNumberData=10&complexData=%7B%22first_name%22%3A%22Smarty%22%2C%20%22last_name%22%3A%22Pants%22%7D">Open</a>
+    <a href="comebacktome://finished?simpleStringData=OK&simpleNumberData=10&complexData=complexData%3D%27%7B%22first_name%22%3A%22Smarty%22%2C%22last_name%22%3A%22Pants%22%7D%27">Open</a>
 </div>
 </body>
 </html>

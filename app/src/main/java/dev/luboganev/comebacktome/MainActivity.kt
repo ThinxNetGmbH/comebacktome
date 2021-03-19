@@ -19,7 +19,10 @@ class MainActivity : AppCompatActivity() {
             val inputUrlString = viewBinding.urlEditText.text?.toString() ?: ""
             try {
                 val uri = Uri.parse(inputUrlString)
-
+                startActivityForResult(
+                    CCTHandlerActivity.createLaunchIntent(this, uri),
+                    CHROME_CUSTOM_TAB_REQUEST_CODE
+                )
             } catch (ex: Exception) {
                 viewBinding.comeBackResultsText.text = "Invalid url: $inputUrlString"
             }
@@ -31,7 +34,18 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CHROME_CUSTOM_TAB_REQUEST_CODE) {
-            viewBinding.comeBackResultsText.text = "Came back from chrome custom tab with RESULT: $resultCode"
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
+                    viewBinding.comeBackResultsText.text =
+                        "Callback result:\n${CCTHandlerActivity.parseCallbackResultIntent(data)}"
+                } else {
+                    viewBinding.comeBackResultsText.text =
+                        "Came back from chrome custom tab with OK result but no data"
+                }
+            } else {
+                viewBinding.comeBackResultsText.text =
+                    "Came back from chrome custom tab with non-OK RESULT: $resultCode"
+            }
         }
     }
 

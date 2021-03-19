@@ -38,7 +38,8 @@
             android:id="@+id/urlEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Url" />
+            android:hint="Url"
+            android:text="http://10.0.2.2:8000"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
