@@ -1,14 +1,13 @@
-package com.thinxnet.rydpay.websdkintegration
+package com.thinxnet.rydpay.websdkintegration.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import java.math.BigDecimal
 
 sealed class RydPayWebSdkCallbackResult : Parcelable {
 
     @Parcelize
     data class Success(
-        paymentData: PaymentDataDto
+        val paymentData: PaymentData
     ): RydPayWebSdkCallbackResult()
 
     @Parcelize

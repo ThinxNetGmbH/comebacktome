@@ -6,6 +6,9 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
+import com.thinxnet.rydpay.websdkintegration.model.PaymentDataDto
+import com.thinxnet.rydpay.websdkintegration.model.PaymentDataDtoMapper
+import com.thinxnet.rydpay.websdkintegration.model.RydPayWebSdkCallbackResult
 import kotlinx.serialization.json.Json
 
 class CCTHandlerActivity : AppCompatActivity() {
@@ -45,9 +48,9 @@ class CCTHandlerActivity : AppCompatActivity() {
         val paymentDataString = callbackUri.getQueryParameter("paymentdata")
         if (isPaymentSuccessful && paymentDataString != null) {
             try {
-                val paymentData = Json.decodeFromString<PaymentDataDto>(paymentDataString)
+                val paymentData = Json.decodeFromString(PaymentDataDto.serializer(), paymentDataString)
                 finishWithResult(
-                    RydPayWebSdkCallbackResult.Success(paymentData)
+                    RydPayWebSdkCallbackResult.Success(PaymentDataDtoMapper.transform(paymentData))
                 )
             } catch (ex: Exception) {
                 finishWithResult(
