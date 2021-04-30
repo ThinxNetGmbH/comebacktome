@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(viewBinding.root)
 
         viewBinding.goButton.setOnClickListener {
-            val inputUrlString = viewBinding.urlEditText.text?.toString() ?: ""
+            val inputUrlString = viewBinding.urlEditText.text?.toString()?.trim() ?: ""
             try {
                 val uri = Uri.parse(inputUrlString)
                 startActivityForResult(
