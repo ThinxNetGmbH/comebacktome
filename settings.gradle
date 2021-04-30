@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "Come back to me"
+rootProject.name = "ryd pay websdk integration sample"

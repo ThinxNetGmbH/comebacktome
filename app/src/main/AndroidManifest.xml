@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="dev.luboganev.comebacktome">
+    package="com.thinxnet.rydpay">
 
     <queries>
         <intent>
@@ -13,8 +13,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ComeBackToMe">
-        <activity android:name=".MainActivity">
+        android:theme="@style/ThemeRydPayWebSdkIntegration">
+        <activity android:name="com.thinxnet.rydpay.websdkintegration.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CCTHandlerActivity"
+            android:name="com.thinxnet.rydpay.websdkintegration.CCTHandlerActivity"
             android:launchMode="singleTop">
             <!-- Change the custom url schema in the gradle script or hardcode it here -->
             <intent-filter>

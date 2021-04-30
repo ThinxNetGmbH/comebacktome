@@ -1,10 +1,11 @@
-package dev.luboganev.comebacktome
+package com.thinxnet.rydpay.websdkintegration
 
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import dev.luboganev.comebacktome.databinding.ActivityMainBinding
+import com.thinxnet.rydpay.BuildConfig
+import com.thinxnet.rydpay.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity() {
                     CHROME_CUSTOM_TAB_REQUEST_CODE
                 )
             } catch (ex: Exception) {
-                viewBinding.comeBackResultsText.text = "Invalid url: $inputUrlString"
+                viewBinding.rydPayWebSdkResultsText.text = "Invalid url: $inputUrlString"
             }
         }
 
@@ -36,14 +37,14 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == CHROME_CUSTOM_TAB_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 if (data != null) {
-                    viewBinding.comeBackResultsText.text =
+                    viewBinding.rydPayWebSdkResultsText.text =
                         "Callback result:\n${CCTHandlerActivity.parseCallbackResultIntent(data)}"
                 } else {
-                    viewBinding.comeBackResultsText.text =
-                        "Came back from chrome custom tab with OK result but no data"
+                    viewBinding.rydPayWebSdkResultsText.text =
+                        "Callback from chrome custom tab with OK result but no data"
                 }
             } else {
-                viewBinding.comeBackResultsText.text =
+                viewBinding.rydPayWebSdkResultsText.text =
                     "Came back from chrome custom tab with non-OK RESULT: $resultCode"
             }
         }

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".MainActivity">
+    tools:context=".websdkintegration.MainActivity">
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Url"
-            android:text="http://10.0.2.2:8000"/>
+            android:text=" https://ryd-demo.web.app/"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -60,11 +60,11 @@
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/comeBackResultsText"
+        android:id="@+id/rydPayWebSdkResultsText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="-"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-        tools:text="The results of opening the custom url schema" />
+        tools:text="The results coming back from the ryd pay web sdk" />
 </LinearLayout>

@@ -2,16 +2,17 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-parcelize'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.4.31'
 }
 
-def customUrlSchema = "comebacktome"
+def customUrlSchema = "rydpaywebsdk"
 
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "dev.luboganev.comebacktome"
+        applicationId "com.thinxnet.rydpay.websdkintegration"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
@@ -42,6 +43,7 @@ android {
 dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0"
     implementation "androidx.core:core-ktx:1.3.2"
     implementation "androidx.appcompat:appcompat:1.2.0"
     implementation "com.google.android.material:material:1.3.0"

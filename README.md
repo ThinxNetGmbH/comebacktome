@@ -1,2 +1,2 @@
-# comebacktome
- A simple Android demo app that can be opened via a custom schema callback from a Chrome Custom Tab
+# ryd pay Web SDK integration sample
+This sample illustrates how to integrate the ryd pay Web SDK into a native Android application by using Chrome Custom tabs.

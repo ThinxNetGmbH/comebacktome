@@ -1,4 +1,4 @@
-package dev.luboganev.comebacktome
+package com.thinxnet.rydpay.websdkintegration
 
 import android.content.Context
 import android.content.Intent
@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
+import kotlinx.serialization.json.Json
 
 class CCTHandlerActivity : AppCompatActivity() {
 
@@ -40,23 +41,24 @@ class CCTHandlerActivity : AppCompatActivity() {
             return
         }
 
-        val simpleStringData = callbackUri.getQueryParameter("simpleStringData")
-        val simpleNumberData = callbackUri.getQueryParameter("simpleNumberData")?.toLongOrNull()
-        val complexData = callbackUri.getQueryParameter("complexData")
-
-        if (simpleStringData != null &&
-            simpleNumberData != null &&
-            complexData != null
-        ) {
-            finishWithSuccess(
-                CallbackResult(
-                    simpleStringData = simpleStringData,
-                    simpleNumberData = simpleNumberData,
-                    complexDataInJson = complexData
+        val isPaymentSuccessful = callbackUri.pathSegments.firstOrNull() == "finish"
+        val paymentDataString = callbackUri.getQueryParameter("paymentdata")
+        if (isPaymentSuccessful && paymentDataString != null) {
+            try {
+                val paymentData = Json.decodeFromString<PaymentDataDto>(paymentDataString)
+                finishWithResult(
+                    RydPayWebSdkCallbackResult.Success(paymentData)
                 )
-            )
+            } catch (ex: Exception) {
+                finishWithResult(
+                    RydPayWebSdkCallbackResult.Failure("Failed to parse result from:\n${paymentDataString}")
+                )
+            }
+
         } else {
-            finishWithCancel()
+            finishWithResult(
+                RydPayWebSdkCallbackResult.Failure("Unexpected callbackUri path or params:\n${callbackUri}")
+            )
         }
     }
 
@@ -65,8 +67,8 @@ class CCTHandlerActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun finishWithSuccess(callbackResult: CallbackResult) {
-        setResult(RESULT_OK, Intent().putExtra(INTENT_EXTRA_CALLBACK_RESULT, callbackResult))
+    private fun finishWithResult(rydPayWebSdkCallbackResult: RydPayWebSdkCallbackResult) {
+        setResult(RESULT_OK, Intent().putExtra(INTENT_EXTRA_CALLBACK_RESULT, rydPayWebSdkCallbackResult))
         finish()
     }
 
@@ -81,7 +83,7 @@ class CCTHandlerActivity : AppCompatActivity() {
                 putExtra(INTENT_EXTRA_URI, uri)
             }
 
-        fun parseCallbackResultIntent(intent: Intent): CallbackResult? =
+        fun parseCallbackResultIntent(intent: Intent): RydPayWebSdkCallbackResult? =
             intent.getParcelableExtra(INTENT_EXTRA_CALLBACK_RESULT)
     }
 }
