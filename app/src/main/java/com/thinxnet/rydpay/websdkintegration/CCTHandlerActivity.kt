@@ -14,6 +14,11 @@ import kotlinx.serialization.json.Json
 class CCTHandlerActivity : AppCompatActivity() {
 
     private var uri: Uri? = null
+    private val json: Json by lazy {
+        Json {
+            isLenient = true
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,11 +49,11 @@ class CCTHandlerActivity : AppCompatActivity() {
             return
         }
 
-        val isPaymentSuccessful = callbackUri.pathSegments.firstOrNull() == "finish"
+        val isPaymentSuccessful = callbackUri.host == "finish"
         val paymentDataString = callbackUri.getQueryParameter("paymentdata")
         if (isPaymentSuccessful && paymentDataString != null) {
             try {
-                val paymentData = Json.decodeFromString(PaymentDataDto.serializer(), paymentDataString)
+                val paymentData = json.decodeFromString(PaymentDataDto.serializer(), paymentDataString)
                 finishWithResult(
                     RydPayWebSdkCallbackResult.Success(PaymentDataDtoMapper.transform(paymentData))
                 )

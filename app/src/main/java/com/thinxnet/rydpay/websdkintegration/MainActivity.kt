@@ -1,5 +1,6 @@
 package com.thinxnet.rydpay.websdkintegration
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.thinxnet.rydpay.BuildConfig
 import com.thinxnet.rydpay.databinding.ActivityMainBinding
 
+@SuppressLint("SetTextI18n")
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewBinding: ActivityMainBinding
@@ -27,6 +29,18 @@ class MainActivity : AppCompatActivity() {
             } catch (ex: Exception) {
                 viewBinding.rydPayWebSdkResultsText.text = "Invalid url: $inputUrlString"
             }
+        }
+
+        viewBinding.clearUrlButton.setOnClickListener {
+            viewBinding.urlEditText.text = null
+        }
+
+        viewBinding.defaultHomeUrlButton.setOnClickListener {
+            viewBinding.urlEditText.setText("https://ryd-demo.web.app/?callback=true")
+        }
+
+        viewBinding.defaultStationUrlButton.setOnClickListener {
+            viewBinding.urlEditText.setText("https://ryd-demo.web.app/?pid=5f746bf05bce72222d327778&callback=true")
         }
 
         viewBinding.customUrlSchemeText.text = BuildConfig.CUSTOM_URL_SCHEMA

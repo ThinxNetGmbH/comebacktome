@@ -18,7 +18,22 @@ through the standard Android ActivityResult API to the caller Activity that star
 ### Implementation details
 
 ##### Launching the ryd pay web
-To be defined
+The base url of the testing environment is: `https://ryd-demo.web.app`. It expects the following url
+query parameters:
+- `callback=true` - **Required**. In order for the web sdk to trigger the custom callback url schema,
+you have to send this paramenter.
+- `pid={POI id}` - **Optional**. The POI id of a particular station. In case it is not provided the 
+web SDK will try to find a close enough ryd pay station around the user location.
+
 
 ##### Consuming results of the ryd pay web
-To be defined
+The ryd pay web sdk delivers back results by calling the custom url schema with aditional host 
+and url query parameters. Successful top ups result in calling the `finish` host with additional
+url query parameter `paymentdata` url encoded json payload. The JSON contains payment details data, such
+as amount of fuel topped up, total price and price per liter. Here is an example callback url
+
+```rydpaywebsdk://finish?paymentdata=%7B%22amount%22%3A10.43%2C%22price%22%3A1.879%2C%22total%22%3A19.6%2C%22stationId%22%3A%225f746bf05bce72222d327778%22%7D```
+
+The url decoded version of the payment data looks like this:
+
+```{"amount":10.43,"price":1.879,"total":19.6,"stationId":"5f746bf05bce72222d327778"}```
