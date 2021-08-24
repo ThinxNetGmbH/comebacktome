@@ -33,11 +33,17 @@ class CCTHandlerActivity : AppCompatActivity() {
             } else {
                 finishWithCancel()
             }
+        } else {
+            processIntent(intent)
         }
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
+        processIntent(intent!!)
+    }
+
+    private fun processIntent(intent: Intent) {
         if (intent == null) {
             finishWithCancel()
             return
