@@ -13,7 +13,6 @@ import kotlinx.serialization.json.Json
 
 class CCTHandlerActivity : AppCompatActivity() {
 
-    private var uri: Uri? = null
     private val json: Json by lazy {
         Json {
             isLenient = true
@@ -22,39 +21,34 @@ class CCTHandlerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        uri = intent.getParcelableExtra(INTENT_EXTRA_URI)
 
-        if (savedInstanceState == null) {
-            val currentUri = uri
-            if (currentUri != null) {
+        val callbackUri = intent?.data
+        val initialUri = intent?.getParcelableExtra<Uri>(INTENT_EXTRA_URI)
+
+        when {
+            callbackUri != null -> {
+                processCallbackUri(callbackUri)
+            }
+            initialUri != null -> {
                 val builder = CustomTabsIntent.Builder()
                 val customTabsIntent = builder.build()
-                customTabsIntent.launchUrl(this, currentUri)
-            } else {
-                finishWithCancel()
+                customTabsIntent.launchUrl(this, initialUri)
             }
-        } else {
-            processIntent(intent)
+            else -> finishWithCancel()
         }
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        processIntent(intent!!)
-    }
-
-    private fun processIntent(intent: Intent) {
-        if (intent == null) {
-            finishWithCancel()
-            return
-        }
-
-        val callbackUri = intent.data
+        val callbackUri = intent?.data
         if (callbackUri == null) {
             finishWithCancel()
             return
         }
+        processCallbackUri(callbackUri)
+    }
 
+    private fun processCallbackUri(callbackUri: Uri) {
         val isPaymentSuccessful = callbackUri.host == "finish"
         val paymentDataString = callbackUri.getQueryParameter("paymentdata")
         if (isPaymentSuccessful && paymentDataString != null) {
