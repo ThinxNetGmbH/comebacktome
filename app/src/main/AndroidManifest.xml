@@ -23,7 +23,8 @@
         </activity>
         <activity
             android:name="com.thinxnet.rydpay.websdkintegration.CCTHandlerActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:theme="@style/RydPayWebAppLauncher">
             <!-- Change the custom url schema in the gradle script or hardcode it here -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
